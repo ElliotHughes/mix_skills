@@ -3,6 +3,27 @@ name: operate-log-guide
 description: 新增操作日志（Operate Log）接入规范与完整步骤（PHP + Strategy 模式 + MongoDB）
 ---
 
+## 🔐 Execution Contract
+
+If this skill is triggered, the assistant MUST begin the response with:
+
+=== USING SKILL: operate-log-guide ===
+
+Failure to output this marker means the skill was not used.
+
+---
+
+
+## When to Use This Skill
+
+当出现以下任意请求时必须使用本 Skill：
+
+- 新增操作日志
+- 添加 operateLog
+- 新增 action 日志
+- 增加 SysOperateLogModel 记录
+- 新增成员管理日志
+
 # 新增操作日志（Operate Log）接入 Skill
 
 ## 目标

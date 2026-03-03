@@ -145,7 +145,7 @@ git diff --name-status origin/master...HEAD
 
 # 九、工时评估（后端主程模型）
 
-必须对每个接口单独评估。
+必须对每个接口单独评估, 按7.5h=1人日计算。
 
 ## Complexity Points 计算
 

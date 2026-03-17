@@ -1,0 +1,4 @@
+interface:
+  display_name: "Requirement Doc to Design"
+  short_description: "Turn mix_web requirement docs into tech design and FE/QA guides"
+  default_prompt: "将需求文档转成可实施的技术设计文档，并在需要时补前端/测试联调文档。"

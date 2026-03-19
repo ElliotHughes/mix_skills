@@ -1,0 +1,4 @@
+interface:
+  display_name: "Yii2 Param Rules"
+  short_description: "Generate Yii2 rules() for request parameter validation from field specs"
+  default_prompt: "根据接口参数说明直接生成 Yii2 rules()，并优先使用官方 core validators。"

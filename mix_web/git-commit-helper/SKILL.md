@@ -20,6 +20,7 @@ If this skill is triggered, the assistant MUST begin the response with:
 - 帮我提交代码
 - 先看 diff，再帮我 commit
 - 用中文生成带 emoji 的 Git 提交信息
+- 压缩提交信息、合并 commit、squash 提交历史
 
 ## Goal
 
@@ -103,6 +104,41 @@ git add path/to/file1 path/to/file2
 git commit -m "📝 docs: 补充提交消息生成 skill" -m "新增基于 git diff 生成中文提交消息的执行规范。补充提交类型判断与安全提交流程，避免误提交无关文件。"
 ```
 
+### Step 5: 用户提到压缩提交信息时，先提交再 squash
+
+当用户明确提到以下任一意图时，必须进入本步骤：
+
+- 压缩提交信息
+- 合并所有 commit
+- squash 提交历史
+- 把多个 commit 压成一条
+
+执行顺序必须固定：
+
+1. 先按 Step 4 提交本次内容，确保当前改动先形成一个独立 commit
+2. 基于本次改动主题创建一个新分支
+3. 在新分支上把目标范围内的 commit 压缩成一条
+4. 为压缩后的单条 commit 重新生成符合本 Skill 规范的提交消息
+5. 最后把新分支名和最终提交消息输出给用户
+
+分支命名规则：
+
+- 默认使用 `codex/` 前缀
+- 分支名应体现“squash + 本次主题”
+- 优先使用简洁、稳定、可读的英文短语，避免使用时间戳和无意义编号
+- 推荐形式：`codex/squash-<topic>`
+- 主题取值优先来自本次提交标题的核心名词，例如：
+  - `codex/squash-git-commit-helper`
+  - `codex/squash-operate-log-guide`
+  - `codex/squash-docs-update`
+
+执行约束：
+
+- 不要在原分支直接改写历史；压缩历史必须在新分支完成
+- 如果目标提交范围不明确，默认压缩“当前分支上与本次任务直接相关的 commit”
+- 压缩后只保留一条最终 commit，不保留中间整理提交
+- 如果仓库存在无关未提交改动，先排除，不要混入 squash 结果
+
 ## Output Rules
 
 ### 仅生成提交消息时
@@ -124,6 +160,15 @@ git commit -m "📝 docs: 补充提交消息生成 skill" -m "新增基于 git d
 2. 已提交还是未提交
 3. 若未提交，明确阻塞原因
 
+### 涉及 squash 时
+
+执行完成后，回复中至少应包含：
+
+1. 新分支名
+2. 压缩后的最终提交标题
+3. 压缩后的最终详细描述
+4. 已完成 squash 还是被什么问题阻塞
+
 ## Constraints
 
 - 不要在没有读取 diff 的情况下直接写提交消息
@@ -131,6 +176,7 @@ git commit -m "📝 docs: 补充提交消息生成 skill" -m "新增基于 git d
 - 不要为了凑类型而夸大改动价值
 - 不要提交明显无关的临时文件或系统文件
 - 如果 diff 为空，必须明确说明“当前没有可生成的有效提交内容”
+- 如果涉及压缩提交历史，必须先提交当前内容，再在新分支上 squash
 
 ## Checklist
 
@@ -139,3 +185,4 @@ git commit -m "📝 docs: 补充提交消息生成 skill" -m "新增基于 git d
 - [ ] 标题在 50 字符内
 - [ ] 详细描述为 2-3 句中文
 - [ ] 若用户要求提交，已仅暂存相关文件并非交互式提交
+- [ ] 若用户要求 squash，已先提交当前内容，再在新分支压缩为单条 commit

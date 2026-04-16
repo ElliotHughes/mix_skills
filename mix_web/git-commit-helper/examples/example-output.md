@@ -11,3 +11,12 @@
 
 新增 `.gitignore` 规则，避免 `.DS_Store` 一类系统文件进入版本控制。
 减少无关噪音文件对工作区和提交记录的干扰，保持仓库历史更干净。
+
+# 示例 3：先提交再压缩为单条 commit
+
+新分支：`codex/squash-git-commit-helper`
+
+📝 docs: 完善 git commit helper 的提交流程
+
+补充基于 `git diff` 生成提交消息、执行提交以及压缩提交历史的完整规则。
+新增 squash 场景下的新分支命名约束与最终输出要求，避免直接改写原分支历史。

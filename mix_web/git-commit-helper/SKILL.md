@@ -123,14 +123,13 @@ git commit -m "📝 docs: 补充提交消息生成 skill" -m "新增基于 git d
 
 分支命名规则：
 
-- 默认使用 `codex/` 前缀
-- 分支名应体现“squash + 本次主题”
-- 优先使用简洁、稳定、可读的英文短语，避免使用时间戳和无意义编号
-- 推荐形式：`codex/squash-<topic>`
-- 主题取值优先来自本次提交标题的核心名词，例如：
-  - `codex/squash-git-commit-helper`
-  - `codex/squash-operate-log-guide`
-  - `codex/squash-docs-update`
+- 必须基于原分支名创建新分支，格式为：`<原分支名>_<版本数>`
+- `版本数` 使用递增整数，从 `1` 开始；如果 `_1` 已存在，则继续尝试 `_2`、`_3`
+- 不要额外添加 `codex/` 前缀，也不要改写原分支主体名称
+- 原分支名保持可识别、可追溯，避免使用时间戳或无意义随机后缀
+- 示例：
+  - 当前分支为 `feature/git-commit-helper`，则新分支可为 `feature/git-commit-helper_1`
+  - 如果 `feature/git-commit-helper_1` 已存在，则使用 `feature/git-commit-helper_2`
 
 执行约束：
 

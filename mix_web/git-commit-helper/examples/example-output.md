@@ -14,7 +14,7 @@
 
 # 示例 3：先提交再压缩为单条 commit
 
-新分支：`codex/squash-git-commit-helper`
+新分支：`feature/git-commit-helper_1`
 
 📝 docs: 完善 git commit helper 的提交流程
 
